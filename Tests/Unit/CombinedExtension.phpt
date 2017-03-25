@@ -17,13 +17,19 @@ final class CombinedExtension extends Tester\TestCase {
 		ob_start();
 		(new Application\CombinedExtension(
 			new class implements Application\Extension {
-				function improve(): void { echo 'a'; }
+				function improve(): void {
+					echo 'a';
+				}
 			},
 			new class implements Application\Extension {
-				function improve(): void { echo 'b'; }
+				function improve(): void {
+					echo 'b';
+				}
 			},
 			new class implements Application\Extension {
-				function improve(): void { echo 'c'; }
+				function improve(): void {
+					echo 'c';
+				}
 			}
 		))->improve();
 		Assert::same('abc', ob_get_clean());

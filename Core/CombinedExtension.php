@@ -6,7 +6,7 @@ final class CombinedExtension implements Extension {
 	private $extensions;
 
 	public function __construct(Extension ...$extensions) {
-		$this->extensions = $extensions;		
+		$this->extensions = $extensions;
 	}
 
 	public function improve(): void {
