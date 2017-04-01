@@ -12,7 +12,13 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1"
+		"php": ">=7.1",
+		"klapuch/csrf": "*",
+		"klapuch/ini": "*",
+		"klapuch/log": "*",
+		"klapuch/routing": "*",
+		"klapuch/ui": "*",
+		"klapuch/uri": "*"
 	},
 	"require-dev": {
 		"nette/tester": "^1.7",

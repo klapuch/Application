@@ -26,7 +26,7 @@ install:
     - echo extension=php_mbstring.dll >> c:\php\php.ini
 
     - appveyor DownloadFile https://getcomposer.org/composer.phar
-    - php composer.phar install --no-interaction --prefer-dist --no-scripts --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
+    - php composer.phar install --no-interaction --prefer-dist --no-scripts --no-progress --no-suggest --optimize-autoloader --classmap-authoritative --ignore-platform-reqs
 
 test_script:
     - vendor/bin/tester -o console -s -c c:\php\php.ini -p c:\php\71\php Tests
