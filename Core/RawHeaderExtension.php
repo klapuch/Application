@@ -11,6 +11,6 @@ final class RawHeaderExtension implements Extension {
 
 	public function improve(): void {
 		foreach ($this->headers as $header)
-			header($header);
+			header((string) $header);
 	}
 }
