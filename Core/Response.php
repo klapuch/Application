@@ -42,7 +42,7 @@ final class Response {
 		return new $class($this->uri, $this->logs, $this->configuration);
 	}
 
-	private function content(Routing\Route $route, Page $target, array $configuration): string {
+	private function content(Routing\Route $route, Page $target, array $configuration, CspHeader $csp): string {
 		$template = sprintf(
 			'%s/../%s/templates/%s',
 			$configuration['PATHS']['templates'],
@@ -54,7 +54,7 @@ final class Response {
 		return (new Output\XsltTemplate(
 			sprintf('%s.xsl', $template),
 			new Output\MergedXml($xml, ...$target->template($route->parameters()))
-		))->render(['base_url' => $this->uri->reference()]);
+		))->render(['base_url' => $this->uri->reference(), 'nonce' => $csp->nonce()]);
 	}
 
 	private function interact(Routing\Route $route, Page $target): void {
@@ -66,17 +66,19 @@ final class Response {
 	public function __toString(): string {
 		try {
 			$configuration = $this->configuration->read();
+			$csp = new CspHeader($configuration['CSP']);
 			(new Application\CombinedExtension(
 				new Application\InternationalExtension('Europe/Prague'),
 				new Application\IniSetExtension($configuration['INI']),
 				new Application\SessionExtension($configuration['SESSIONS']),
-				new Application\HeaderExtension($configuration['HEADERS'])
+				new Application\HeaderExtension($configuration['HEADERS']),
+				new Application\RawHeaderExtension([$csp])
 			))->improve();
 			$route = $this->routes->match($this->uri);
 			$target = $this->target($route, $configuration);
 			$target->startup();
 			$this->interact($route, $target);
-			return $this->content($route, $target, $configuration);
+			return $this->content($route, $target, $configuration, $csp);
 		} catch (\Throwable $ex) {
 			$this->logs->put(
 				new Log\PrettyLog(
