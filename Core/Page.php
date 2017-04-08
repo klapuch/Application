@@ -46,10 +46,11 @@ abstract class Page {
 	/**
 	 * Redirect relatively to the given url
 	 * @param string $url
+	 * @param int $code
 	 * @return void
 	 */
-	final protected function redirect(string $url): void {
-		header(sprintf('Location: %s/%s', $this->url->reference(), $url));
+	final protected function redirect(string $url, int $code = 200): void {
+		header(sprintf('Location: %s/%s', $this->url->reference(), $url), true, $code);
 		exit;
 	}
 
