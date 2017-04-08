@@ -88,7 +88,8 @@ final class Response {
 					)
 				)
 			);
-			header(sprintf('Location: %s/error', $this->uri->reference()), true, 500);
+			http_response_code(500);
+			header(sprintf('Location: %s/error', $this->uri->reference()));
 			exit;
 		}
 	}
