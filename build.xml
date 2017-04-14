@@ -77,6 +77,8 @@
 			<arg value="php-cgi"/>
 			<arg value="-c"/>
 			<arg path="Tests/php.ini"/>
+            <arg value="-d"/>
+            <arg value="extension=xdebug.so"/>
 			<arg path="Tests/"/>
 			<arg value="--coverage"/>
 			<arg value="coverage.xml"/>
