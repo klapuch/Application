@@ -19,7 +19,7 @@ final class SessionExtension implements Extension {
 		if (isset($_SESSION[self::TIMER]) && (time() - $_SESSION[self::TIMER]) > $this->break) {
 			$_SESSION[self::TIMER] = time();
 			session_regenerate_id(true);
-		} elseif (!isset($_SESSION[self::TIMER]))
+		} else
 			$_SESSION[self::TIMER] = time();
 	}
 }
