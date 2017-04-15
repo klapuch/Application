@@ -16,10 +16,16 @@ final class SessionExtension implements Extension {
 	public function improve(): void {
 		if (session_status() === PHP_SESSION_NONE)
 			session_start($this->settings);
-		if (isset($_SESSION[self::TIMER]) && (time() - $_SESSION[self::TIMER]) > $this->break) {
+		if ($this->elapsed($this->break)) {
 			$_SESSION[self::TIMER] = time();
 			session_regenerate_id(true);
-		} else
+		} else {
 			$_SESSION[self::TIMER] = time();
+		}
+	}
+
+	private function elapsed(int $break): bool {
+		return isset($_SESSION[self::TIMER])
+		&& (time() - $_SESSION[self::TIMER]) > $break;
 	}
 }
