@@ -10,4 +10,10 @@ interface Response {
 	 * @return \Klapuch\Output\Format
 	 */
 	public function body(): Output\Format;
+
+	/**
+	 * Response headers in key(Field) => value(Value) format
+	 * @return array
+	 */
+	public function headers(): array;
 }
