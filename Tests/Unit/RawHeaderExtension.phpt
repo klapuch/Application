@@ -31,6 +31,15 @@ final class RawHeaderExtension extends Tester\TestCase {
 		))->improve();
 		Assert::contains('Name:Value', headers_list());
 	}
+
+	public function testRemovingCaseInsensitiveDuplicates() {
+		(new Application\RawHeaderExtension(
+			['Name:Value', 'Foo:bar', 'name:Value']
+		))->improve();
+		Assert::notContains('Name:Value', headers_list());
+		Assert::contains('name:Value', headers_list());
+		Assert::contains('Foo:bar', headers_list());
+	}
 }
 
 

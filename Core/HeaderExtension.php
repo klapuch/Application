@@ -10,7 +10,14 @@ final class HeaderExtension implements Extension {
 	}
 
 	public function improve(): void {
-		foreach ($this->headers as $field => $value)
-			header(sprintf('%s:%s', $field, $value));
+		(new RawHeaderExtension(
+			array_map(
+				function(string $field, string $value): string {
+					return sprintf('%s:%s', $field, $value);
+				},
+				array_keys($this->headers),
+				$this->headers
+			)
+		))->improve();
 	}
 }
