@@ -84,6 +84,8 @@ final class HtmlPage implements Page {
 			$this->interact($route, $target);
 			return $this->content($route, $target, $configuration, $csp);
 		} catch (\Throwable $ex) {
+			if (isset($configuration['RUNTIME']['debug']) && $configuration['RUNTIME']['debug'] === true)
+				throw $ex;
 			$this->logs->put(
 				new Log\PrettyLog(
 					$ex,
