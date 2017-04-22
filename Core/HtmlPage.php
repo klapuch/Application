@@ -21,7 +21,7 @@ final class HtmlPage implements Page {
 	private $request;
 
 	public function __construct(
-		Ini\Ini $configuration,
+		Ini\Source $configuration,
 		Log\Logs $logs,
 		Routing\Routes $routes,
 		Uri\Uri $uri,
