@@ -13,7 +13,6 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"klapuch/csrf": "*",
 		"klapuch/ini": "^2.0",
 		"klapuch/log": "*",
 		"klapuch/routing": "*",
