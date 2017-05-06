@@ -44,13 +44,32 @@ final class SessionExtension extends Tester\TestCase {
 	public function testNoPassedSetting() {
 		$extension = new Application\SessionExtension([]);
 		$extension->improve();
-		Assert::false(session_get_cookie_params()['httponly']);
+		Assert::match('~^Set-Cookie: PHPSESSID=\S+; path=/;$~', headers_list()[4]);
 	}
 
 	public function testPassingSetting() {
 		$extension = new Application\SessionExtension(['cookie_httponly' => true]);
 		$extension->improve();
+		Assert::contains('HttpOnly', headers_list()[4]);
 		Assert::true(session_get_cookie_params()['httponly']);
+	}
+
+	public function testSettingSameSite() {
+		$extension = new Application\SessionExtension(['SameSite' => 'strict']);
+		$extension->improve();
+		$cookie = headers_list()[4];
+		Assert::match(
+			'~^Set-Cookie: PHPSESSID=\S+; path=/; SameSite=strict$~',
+			$cookie
+		);
+	}
+
+	public function testSettingSameSiteAsCaseInsensitive() {
+		$extension = new Application\SessionExtension(['sAmESiTe' => 'strict']);
+		$extension->improve();
+		$cookie = headers_list()[4];
+		Assert::contains('Set-Cookie: ', $cookie);
+		Assert::contains('; SameSite=strict', $cookie);
 	}
 }
 
