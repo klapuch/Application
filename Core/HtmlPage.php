@@ -76,6 +76,7 @@ final class HtmlPage implements Page {
 				new Internal\InternationalExtension('Europe/Prague'),
 				new Internal\IniSetExtension($configuration['INI']),
 				new Internal\SessionExtension($configuration['SESSIONS']),
+				new Internal\CookieExtension($configuration['PROPRIETARY_SESSIONS']),
 				new Internal\HeaderExtension($configuration['HEADERS']),
 				new Internal\RawHeaderExtension([$csp])
 			))->improve();
