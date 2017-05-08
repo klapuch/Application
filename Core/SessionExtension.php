@@ -49,12 +49,12 @@ final class SessionExtension implements Extension {
 	private function raw(array $settings): string {
 		$matches = array_intersect_ukey(
 			array_flip(self::PROPRIETARIES),
-			$this->settings,
+			$settings,
 			'strcasecmp'
 		);
 		$headers = array_combine(
 			array_flip($matches),
-			array_intersect_ukey($this->settings, $matches, 'strcasecmp')
+			array_intersect_ukey($settings, $matches, 'strcasecmp')
 		);
 		return sprintf(
 			'%s; %s',
