@@ -13,6 +13,7 @@
 	],
 	"require": {
 		"php": ">=7.1",
+		"klapuch/internal": "*",
 		"klapuch/ini": "^2.0",
 		"klapuch/log": "*",
 		"klapuch/routing": "*",
@@ -20,8 +21,6 @@
 		"klapuch/uri": "*"
 	},
 	"require-dev": {
-		"nette/tester": "^1.7",
-		"mockery/mockery": "^0.9.8",
 		"phpstan/phpstan": ">=0.6.0",
 		"jakub-onderka/php-parallel-lint": "^0.9.2",
 		"slevomat/coding-standard": "^2.0.0",

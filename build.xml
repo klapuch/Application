@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Application" default="check">
 
-	<target name="check" depends="lint, phpcpd, phpstan, phpcs, cgi-tests"/>
-	<target name="ci" depends="lint, phpcpd, phpstan, phpcs, cgi-tests, coverage"/>
+	<target name="check" depends="lint, phpcpd, phpstan, phpcs"/>
+	<target name="ci" depends="lint, phpcpd, phpstan, phpcs"/>
 
 	<target name="lint">
 		<exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
 			<arg value="-e"/>
-			<arg value="php,phpt"/>
+			<arg value="php"/>
 			<arg path="Core"/>
-			<arg path="Tests"/>
 		</exec>
 	</target>
 
@@ -27,7 +26,6 @@
 			<arg value="-c"/>
 			<arg path="phpstan.neon"/>
 			<arg path="Core"/>
-			<arg path="Tests"/>
 		</exec>
 	</target>
 
@@ -39,7 +37,6 @@
 			<arg value="--tab-width=4"/>
 			<arg value="-sp"/>
 			<arg path="Core"/>
-			<arg path="Tests"/>
 		</exec>
 	</target>
 
@@ -50,39 +47,6 @@
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
 			<arg value="-sp"/>
-			<arg path="Core"/>
-			<arg path="Tests"/>
-		</exec>
-	</target>
-
-	<target name="cgi-tests">
-		<exec executable="vendor/bin/tester" logoutput="true" passthru="true" checkreturn="true">
-			<arg value="-o"/>
-			<arg value="console"/>
-			<arg value="-s"/>
-			<arg value="-p"/>
-			<arg value="php-cgi"/>
-			<arg value="-c"/>
-			<arg path="Tests/php.ini"/>
-			<arg path="Tests/"/>
-		</exec>
-	</target>
-
-	<target name="coverage">
-		<exec executable="vendor/bin/tester" logoutput="true" passthru="true" checkreturn="true">
-			<arg value="-o"/>
-			<arg value="console"/>
-			<arg value="-s"/>
-			<arg value="-p"/>
-			<arg value="php-cgi"/>
-			<arg value="-c"/>
-			<arg path="Tests/php.ini"/>
-			<arg value="-d"/>
-			<arg value="extension=xdebug.so"/>
-			<arg path="Tests/"/>
-			<arg value="--coverage"/>
-			<arg value="coverage.xml"/>
-			<arg value="--coverage-src"/>
 			<arg path="Core"/>
 		</exec>
 	</target>

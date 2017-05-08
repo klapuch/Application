@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
-use Klapuch\Application;
 use Klapuch\Ini;
+use Klapuch\Internal;
 use Klapuch\Log;
 use Klapuch\Output;
 use Klapuch\Routing;
@@ -45,7 +45,7 @@ final class HtmlPage implements Page {
 		return new $class($this->uri, $this->logs, $this->configuration);
 	}
 
-	private function content(Routing\Route $route, Request $target, array $configuration, CspHeader $csp): string {
+	private function content(Routing\Route $route, Request $target, array $configuration, Internal\CspHeader $csp): string {
 		$xsl = sprintf(
 			'%s/../%s/templates/%s.xsl',
 			$configuration['PATHS']['templates'],
@@ -53,7 +53,7 @@ final class HtmlPage implements Page {
 			$route->action()
 		);
 		$headers = self::HEADERS + $target->response($route->parameters())->headers();
-		(new HeaderExtension($headers))->improve();
+		(new Internal\HeaderExtension($headers))->improve();
 		if (array_key_exists('location', array_change_key_case($headers, CASE_LOWER)))
 			exit;
 		return (new Output\XsltTemplate(
@@ -71,13 +71,13 @@ final class HtmlPage implements Page {
 	public function __toString(): string {
 		try {
 			$configuration = $this->configuration->read();
-			$csp = new CspHeader($configuration['CSP']);
-			(new Application\CombinedExtension(
-				new Application\InternationalExtension('Europe/Prague'),
-				new Application\IniSetExtension($configuration['INI']),
-				new Application\SessionExtension($configuration['SESSIONS']),
-				new Application\HeaderExtension($configuration['HEADERS']),
-				new Application\RawHeaderExtension([$csp])
+			$csp = new Internal\CspHeader($configuration['CSP']);
+			(new Internal\CombinedExtension(
+				new Internal\InternationalExtension('Europe/Prague'),
+				new Internal\IniSetExtension($configuration['INI']),
+				new Internal\SessionExtension($configuration['SESSIONS']),
+				new Internal\HeaderExtension($configuration['HEADERS']),
+				new Internal\RawHeaderExtension([$csp])
 			))->improve();
 			$route = $this->routes->match($this->uri);
 			$target = $this->target($route, $configuration);
