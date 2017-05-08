@@ -62,8 +62,8 @@ final class SessionExtension implements Extension {
 			implode(
 				';',
 				array_map(
-					function(string $key, string $value): string {
-						return sprintf('%s=%s', $key, $value);
+					function(string $field, string $value): string {
+						return sprintf('%s=%s', $field, $value);
 					},
 					array_keys($headers),
 					$headers
