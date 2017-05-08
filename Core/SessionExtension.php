@@ -17,9 +17,9 @@ final class SessionExtension implements Extension {
 	public function improve(): void {
 		if (session_status() === PHP_SESSION_NONE)
 			session_start($this->native($this->settings));
-		header($this->raw($this->settings));
 		if ($this->elapsed($this->break))
 			session_regenerate_id(true);
+		header(static::raw($this->settings));
 		$_SESSION[self::TIMER] = time();
 	}
 
@@ -46,7 +46,7 @@ final class SessionExtension implements Extension {
 	 * @param array $settings
 	 * @return string
 	 */
-	private function raw(array $settings): string {
+	private static function raw(array $settings): string {
 		$matches = array_intersect_ukey(
 			array_flip(self::PROPRIETARIES),
 			$settings,

@@ -71,6 +71,16 @@ final class SessionExtension extends Tester\TestCase {
 		Assert::contains('Set-Cookie: ', $cookie);
 		Assert::contains('; SameSite=strict', $cookie);
 	}
+
+	public function testProprietarSettingAfterRegeneration() {
+		$extension = new Application\SessionExtension(['SameSite' => 'strict'], 1);
+		$extension->improve();
+		$_SESSION['_timer'] = time() - 2;
+		$extension->improve();
+		$cookie = headers_list()[4];
+		Assert::contains('Set-Cookie: ', $cookie);
+		Assert::contains('; SameSite=strict', $cookie);
+	}
 }
 
 
