@@ -52,10 +52,7 @@ final class HtmlPage implements Page {
 			$route->resource(),
 			$route->action()
 		);
-		$headers = self::HEADERS + $target->response($route->parameters())->headers();
-		(new Internal\HeaderExtension($headers))->improve();
-		if (array_key_exists('location', array_change_key_case($headers, CASE_LOWER)))
-			exit;
+		$this->sendHeaders($target->response($route->parameters())->headers());
 		return (new Output\XsltTemplate(
 			$xsl,
 			$target->response($route->parameters())->body()
@@ -64,8 +61,17 @@ final class HtmlPage implements Page {
 
 	private function interact(Routing\Route $route, Request $target): void {
 		$submit = 'submit' . $route->action();
-		if ($this->method === 'POST' && method_exists($target, $submit))
-			$target->$submit($this->request, $route->parameters());
+		if ($this->method === 'POST' && method_exists($target, $submit)) {
+			$response = $target->$submit($this->request, $route->parameters());
+			$this->sendHeaders($response->headers());
+		}
+	}
+
+	private function sendHeaders(array $headers): void {
+		$headers = self::HEADERS + $headers;
+		(new Internal\HeaderExtension($headers))->improve();
+		if (array_key_exists('location', array_change_key_case($headers, CASE_LOWER)))
+			exit;
 	}
 
 	public function __toString(): string {
