@@ -26,7 +26,8 @@
 		"sebastian/phpcpd": "^2.0",
 		"phing/phing": "^2.16",
 		"consistence/coding-standard": "^0.13.0",
-		"phpstan/phpstan": "^0.7.0"
+		"phpstan/phpstan": "^0.7.0",
+		"nette/tester": "^1.7"
 	},
 	"autoload": {
 		"psr-4": {
