@@ -6,7 +6,7 @@ use Klapuch\Internal;
 use Klapuch\Output;
 
 /**
- * Template form common web application
+ * Template for common web application
  */
 final class HtmlTemplate implements Output\Template {
 	private const HEADERS = [
