@@ -17,13 +17,13 @@ require __DIR__ . '/../bootstrap.php';
 final class HtmlTemplate extends \Tester\TestCase {
 	public function testRenderingWithinPassedHeaders() {
 		(new Application\HtmlTemplate(
-			Tester\FileMock::create(
-				'<?xml version="1.0" encoding="utf-8"?>
-				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl'),
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
 				['test' => 'foo']
-			)
+			),
+			Tester\FileMock::create(
+				'<?xml version="1.0" encoding="utf-8"?>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl')
 		))->render([]);
 		Assert::same('Content-Type:text/html; charset=utf8;', headers_list()[1]);
 		Assert::same('test:foo', headers_list()[2]);
@@ -35,27 +35,27 @@ final class HtmlTemplate extends \Tester\TestCase {
 FOO
 ',
 			(new Application\HtmlTemplate(
-				Tester\FileMock::create(
-					'<?xml version="1.0" encoding="utf-8"?>
-					<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-					</xsl:stylesheet>', 'xsl'),
 				new Application\FakeResponse(
 					new Output\FakeFormat('<foo>FOO</foo>'),
 					['test' => 'foo']
-				)
+				),
+				Tester\FileMock::create(
+					'<?xml version="1.0" encoding="utf-8"?>
+					<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+					</xsl:stylesheet>', 'xsl')
 			))->render([])
 		);
 	}
 
 	public function testDenyingOverwritingDefaultHeaders() {
 		(new Application\HtmlTemplate(
-			Tester\FileMock::create(
-				'<?xml version="1.0" encoding="utf-8"?>
-				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl'),
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
 				['Content-Type' => 'foo']
-			)
+			),
+			Tester\FileMock::create(
+				'<?xml version="1.0" encoding="utf-8"?>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl')
 		))->render([]);
 		Assert::count(2, headers_list());
 		Assert::same('Content-Type:text/html; charset=utf8;', headers_list()[1]);
@@ -64,13 +64,13 @@ FOO
 	public function testExitingAfterRedirect() {
 		ob_start();
 		(new Application\HtmlTemplate(
-			Tester\FileMock::create(
-				'<?xml version="1.0" encoding="utf-8"?>
-				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl'),
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
 				['Location' => 'https://www.google.com']
 			),
+			Tester\FileMock::create(
+				'<?xml version="1.0" encoding="utf-8"?>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl'),
 			$exit = false
 		))->render([]);
 		Assert::same('Exited', ob_get_clean());
@@ -81,13 +81,13 @@ FOO
 	public function testAllowingAnyLocationCase() {
 		ob_start();
 		(new Application\HtmlTemplate(
-			Tester\FileMock::create(
-				'<?xml version="1.0" encoding="utf-8"?>
-				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl'),
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
 				['lOcAtion' => 'https://www.google.com']
 			),
+			Tester\FileMock::create(
+				'<?xml version="1.0" encoding="utf-8"?>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl'),
 			$exit = false
 		))->render([]);
 		Assert::same('Exited', ob_get_clean());

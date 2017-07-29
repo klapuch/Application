@@ -12,13 +12,13 @@ final class HtmlTemplate implements Output\Template {
 	private const HEADERS = [
 		'Content-Type' => 'text/html; charset=utf8;',
 	];
-	private $xsl;
 	private $response;
+	private $xsl;
 	private $exit;
 
-	public function __construct(string $xsl, Response $response, bool $exit = true) {
-		$this->xsl = $xsl;
+	public function __construct(Response $response, string $xsl, bool $exit = true) {
 		$this->response = $response;
+		$this->xsl = $xsl;
 		$this->exit = $exit;
 	}
 
