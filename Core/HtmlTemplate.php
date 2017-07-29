@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
-use Klapuch\Output;
 use Klapuch\Internal;
+use Klapuch\Output;
 
 /**
  * Template form common web application
@@ -30,16 +30,18 @@ final class HtmlTemplate implements Output\Template {
 		))->render($variables);
 	}
 
-	/*
+	/**
 	 * Send the headers
 	 */
 	private function sendHeaders(array $headers): void {
 		$headers = self::HEADERS + $headers;
 		(new Internal\HeaderExtension($headers))->improve();
-		if (array_key_exists('location', array_change_key_case($headers, CASE_LOWER)))
-			if ($this->exit === true)
+		if (array_key_exists('location', array_change_key_case($headers, CASE_LOWER))) {
+			if ($this->exit === true) {
 				exit;
-			else
+			} else {
 				echo 'Exited';
+			}
+		}
 	}
 }

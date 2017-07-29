@@ -22,7 +22,7 @@ install:
     - IF %PHP%==1 del /Q *.zip
 
     - cd c:\projects\project
-    - echo extension_dir=ext >> c:\php\php.ini
+    - copy Tests\php.win.ini c:\php\php.ini
 
     - appveyor DownloadFile https://getcomposer.org/composer.phar
     - php composer.phar install --no-interaction --prefer-dist --no-scripts --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
