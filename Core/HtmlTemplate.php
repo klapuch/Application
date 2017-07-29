@@ -16,7 +16,7 @@ final class HtmlTemplate implements Output\Template {
 	private $xsl;
 	private $exit;
 
-	public function __construct(Response $response, string $xsl, bool $exit = true) {
+	public function __construct(Response $response, string $xsl = '', bool $exit = true) {
 		$this->response = $response;
 		$this->xsl = $xsl;
 		$this->exit = $exit;
