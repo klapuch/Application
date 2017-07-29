@@ -47,7 +47,7 @@ final class HtmlPage implements Page {
 			return $this->target(
 				$route
 			)->response(
-				$route->parameters()
+				$_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $route->parameters()
 			)->render(
 				[
 					'base_url' => $this->uri->reference(),
