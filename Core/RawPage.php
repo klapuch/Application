@@ -12,6 +12,7 @@ final class RawPage extends Page {
 			(new Internal\CombinedExtension(
 				new Internal\InternationalExtension('Europe/Prague'),
 				new Internal\IniSetExtension($configuration['INI']),
+				new Internal\SessionExtension($configuration['SESSIONS']),
 				new Internal\HeaderExtension($configuration['HEADERS'])
 			))->improve();
 			$route = $this->routes->match($this->uri);
