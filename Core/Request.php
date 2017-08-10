@@ -2,13 +2,16 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
-use Klapuch\Output;
-
 interface Request {
 	/**
-	 * Response from the request
-	 * @param array $parameters
-	 * @return \Klapuch\Output\Template
+	 * Body itself
+	 * @return \Klapuch\Application\Body
 	 */
-	public function response(array $parameters): Output\Template;
+	public function body(): Body;
+
+	/**
+	 * Headers serialized to array
+	 * @return string[]
+	 */
+	public function headers(): array;
 }
