@@ -21,7 +21,7 @@ final class HtmlPage extends Page {
 			$route = $this->routes->match($this->uri);
 			return $this->target(
 				$route
-			)->response(
+			)->template(
 				$_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $route->parameters()
 			)->render(
 				[

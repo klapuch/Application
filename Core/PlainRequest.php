@@ -2,14 +2,24 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
+use Klapuch\Output;
+
 /**
  * Request as it is - without modifications
  */
 final class PlainRequest implements Request {
-	public function body(): Body {
-		return new class implements Body {
-			public function data(): string {
+	public function body(): Output\Format {
+		return new class implements Output\Format {
+			public function serialization(): string {
 				return file_get_contents('php://input');
+			}
+
+			public function with($tag, $content = null): Output\Format {
+				throw new \Exception('With is not allowed.');
+			}
+
+			public function adjusted($tag, callable $adjustment): Output\Format {
+				throw new \Exception('Adjusting is not allowed.');
 			}
 		};
 	}

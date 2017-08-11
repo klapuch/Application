@@ -16,7 +16,7 @@ final class RawPage extends Page {
 				new Internal\HeaderExtension($configuration['HEADERS'])
 			))->improve();
 			$route = $this->routes->match($this->uri);
-			return $this->target($route)->response($route->parameters())->render();
+			return $this->target($route)->template($route->parameters())->render();
 		} catch (\Throwable $ex) {
 			if (isset($configuration['RUNTIME']['debug']) && $configuration['RUNTIME']['debug'] === true)
 				throw $ex;
