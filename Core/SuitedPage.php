@@ -4,10 +4,10 @@ namespace Klapuch\Application;
 
 final class SuitedPage extends Page {
 	private const FIELD = 'content-type';
-	private const DEFAULT_TYPE = 'html';
+	private const WEB = ['text/html', 'application/x-www-form-urlencoded'];
 
 	public function __toString(): string {
-		if ($this->type($this->headers()) === self::DEFAULT_TYPE) {
+		if (in_array($this->type($this->headers()), self::WEB)) {
 			return (string) new HtmlPage(
 				$this->configuration,
 				$this->logs,
@@ -24,11 +24,9 @@ final class SuitedPage extends Page {
 	}
 
 	private function type(array $headers): string {
-		if (array_key_exists(self::FIELD, $headers)) {
-			preg_match('~^\w+/(\w+)~', $headers[self::FIELD], $matches);
-			return $matches[1] ?? self::DEFAULT_TYPE;
-		}
-		return self::DEFAULT_TYPE;
+		if (array_key_exists(self::FIELD, $headers))
+			return $headers[self::FIELD];
+		return self::WEB[0];
 	}
 
 	private function headers(): array {
