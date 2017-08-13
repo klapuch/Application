@@ -7,7 +7,7 @@ final class SuitedPage extends Page {
 	private const WEB = ['text/html', 'application/x-www-form-urlencoded'];
 
 	public function __toString(): string {
-		if (in_array($this->type($this->headers()), self::WEB)) {
+		if (in_array($this->type((new PlainRequest())->headers()), self::WEB)) {
 			return (string) new HtmlPage(
 				$this->configuration,
 				$this->logs,
@@ -27,15 +27,5 @@ final class SuitedPage extends Page {
 		if (array_key_exists(self::FIELD, $headers))
 			return $headers[self::FIELD];
 		return self::WEB[0];
-	}
-
-	private function headers(): array {
-		$headers = [];
-		foreach ($_SERVER as $name => $value) {
-			if (substr($name, 0, 5) === 'HTTP_') {
-				$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-			}
-		}
-		return array_change_key_case($headers, CASE_LOWER);
 	}
 }
