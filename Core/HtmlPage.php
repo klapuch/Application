@@ -6,7 +6,7 @@ use Klapuch\Internal;
 use Klapuch\Log;
 
 final class HtmlPage extends Page {
-	public function __toString(): string {
+	public function render(array $variables = []): string {
 		try {
 			$configuration = $this->configuration->read();
 			$csp = new Internal\CspHeader($configuration['CSP']);
@@ -27,7 +27,7 @@ final class HtmlPage extends Page {
 				[
 					'base_url' => $this->uri->reference(),
 					'nonce' => $csp->nonce(),
-				]
+				] + $variables
 			);
 		} catch (\Throwable $ex) {
 			if (isset($configuration['RUNTIME']['debug']) && $configuration['RUNTIME']['debug'] === true)

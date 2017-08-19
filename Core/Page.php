@@ -4,10 +4,11 @@ namespace Klapuch\Application;
 
 use Klapuch\Ini;
 use Klapuch\Log;
+use Klapuch\Output;
 use Klapuch\Routing;
 use Klapuch\Uri;
 
-abstract class Page {
+abstract class Page implements Output\Template {
 	protected $configuration;
 	protected $logs;
 	protected $routes;
@@ -29,10 +30,4 @@ abstract class Page {
 		$class = $route->resource();
 		return new $class($this->uri, $this->logs, $this->configuration);
 	}
-
-	/**
-	 * Content of the page
-	 * @return string
-	 */
-	abstract public function __toString(): string;
 }

@@ -6,7 +6,7 @@ use Klapuch\Internal;
 use Klapuch\Log;
 
 final class RawPage extends Page {
-	public function __toString(): string {
+	public function render(array $variables = []): string {
 		try {
 			$configuration = $this->configuration->read();
 			(new Internal\CombinedExtension(
@@ -15,7 +15,7 @@ final class RawPage extends Page {
 				new Internal\HeaderExtension($configuration['HEADERS'])
 			))->improve();
 			$route = $this->routes->match($this->uri);
-			return $this->target($route)->template($route->parameters())->render();
+			return $this->target($route)->template($route->parameters())->render($variables);
 		} catch (\Throwable $ex) {
 			if (isset($configuration['RUNTIME']['debug']) && $configuration['RUNTIME']['debug'] === true)
 				throw $ex;

@@ -6,21 +6,21 @@ final class SuitedPage extends Page {
 	private const FIELD = 'content-type';
 	private const WEB = ['text/html', 'application/x-www-form-urlencoded'];
 
-	public function __toString(): string {
+	public function render(array $variables = []): string {
 		if (in_array($this->type((new PlainRequest())->headers()), self::WEB)) {
-			return (string) new HtmlPage(
+			return (new HtmlPage(
 				$this->configuration,
 				$this->logs,
 				$this->routes,
 				$this->uri
-			);
+			))->render($variables);
 		}
-		return (string) new RawPage(
+		return (new RawPage(
 			$this->configuration,
 			$this->logs,
 			$this->routes,
 			$this->uri
-		);
+		))->render($variables);
 	}
 
 	private function type(array $headers): string {
