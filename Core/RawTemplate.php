@@ -17,7 +17,7 @@ final class RawTemplate implements Output\Template {
 
 	public function render(array $variables = []): string {
 		http_response_code($this->response->status());
-		(new Internal\HeaderExtension($this->response->headers()))->improve();
+		(new Internal\HeaderExtension((new HttpResponse($this->response))->headers()))->improve();
 		return $this->response->body()->serialization();
 	}
 }

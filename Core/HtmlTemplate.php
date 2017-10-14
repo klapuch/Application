@@ -24,7 +24,7 @@ final class HtmlTemplate implements Output\Template {
 
 	public function render(array $variables = []): string {
 		http_response_code($this->response->status());
-		$this->sendHeaders($this->response->headers());
+		$this->sendHeaders((new HttpResponse($this->response))->headers());
 		return (new Output\XsltTemplate(
 			$this->xsl,
 			$this->response->body()
@@ -32,12 +32,13 @@ final class HtmlTemplate implements Output\Template {
 	}
 
 	/**
+	 * @param string[] $headers
 	 * Send the headers
 	 */
 	private function sendHeaders(array $headers): void {
 		$headers = self::HEADERS + $headers;
 		(new Internal\HeaderExtension($headers))->improve();
-		if (array_key_exists('location', array_change_key_case($headers, CASE_LOWER))) {
+		if (array_key_exists('Location', $headers)) {
 			if ($this->exit === true) {
 				exit;
 			} else {

@@ -25,7 +25,7 @@ final class RawTemplate extends \Tester\TestCase {
 				)
 			))->render()
 		);
-		Assert::same('test:foo', headers_list()[1]);
+		Assert::same('Test:foo', headers_list()[1]);
 	}
 }
 
