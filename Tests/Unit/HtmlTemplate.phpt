@@ -19,7 +19,8 @@ final class HtmlTemplate extends \Tester\TestCase {
 		(new Application\HtmlTemplate(
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
-				['test' => 'foo']
+				['test' => 'foo'],
+				200
 			),
 			Tester\FileMock::create(
 				'<?xml version="1.0" encoding="utf-8"?>
@@ -37,7 +38,8 @@ FOO
 			(new Application\HtmlTemplate(
 				new Application\FakeResponse(
 					new Output\FakeFormat('<foo>FOO</foo>'),
-					['test' => 'foo']
+					['test' => 'foo'],
+					200
 				),
 				Tester\FileMock::create(
 					'<?xml version="1.0" encoding="utf-8"?>
@@ -51,7 +53,8 @@ FOO
 		(new Application\HtmlTemplate(
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
-				['Content-Type' => 'foo']
+				['Content-Type' => 'foo'],
+				200
 			),
 			Tester\FileMock::create(
 				'<?xml version="1.0" encoding="utf-8"?>
@@ -66,7 +69,8 @@ FOO
 		(new Application\HtmlTemplate(
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
-				['Location' => 'https://www.google.com']
+				['Location' => 'https://www.google.com'],
+				200
 			),
 			Tester\FileMock::create(
 				'<?xml version="1.0" encoding="utf-8"?>
@@ -83,7 +87,8 @@ FOO
 		(new Application\HtmlTemplate(
 			new Application\FakeResponse(
 				new Output\FakeFormat('<foo>FOO</foo>'),
-				['lOcAtion' => 'https://www.google.com']
+				['lOcAtion' => 'https://www.google.com'],
+				200
 			),
 			Tester\FileMock::create(
 				'<?xml version="1.0" encoding="utf-8"?>
