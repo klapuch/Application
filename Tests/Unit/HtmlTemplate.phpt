@@ -27,7 +27,7 @@ final class HtmlTemplate extends \Tester\TestCase {
 				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"></xsl:stylesheet>', 'xsl')
 		))->render([]);
 		Assert::same('Content-Type:text/html; charset=utf8;', headers_list()[1]);
-		Assert::same('test:foo', headers_list()[2]);
+		Assert::same('Test:foo', headers_list()[2]);
 	}
 
 	public function testPassingRendering() {
