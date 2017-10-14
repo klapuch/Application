@@ -21,7 +21,12 @@ final class HttpResponse implements Application\Response {
 
 	public function headers(): array {
 		return array_combine(
-			array_map([$this, 'unify'], array_keys($this->origin->headers())),
+			array_map(
+				function(string $field): string {
+					return (new Header($field))->field();
+				},
+				array_keys($this->origin->headers())
+			),
 			$this->origin->headers()
 		);
 	}
@@ -29,18 +34,4 @@ final class HttpResponse implements Application\Response {
 	public function status(): int {
 		return $this->origin->status();
 	}
-
-	// @codingStandardsIgnoreStart Used by array_map
-	private function unify(string $field): string {
-		return implode(
-			'-',
-			array_map(
-				function(string $field): string {
-					return ucfirst(strtolower($field));
-				},
-				explode('-', $field)
-			)
-		);
-	}
-	// @codingStandardsIgnoreEnd
 }
