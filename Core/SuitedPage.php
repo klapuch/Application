@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Klapuch\Application;
 
 final class SuitedPage extends Page {
-	private const FIELD = 'content-type';
+	private const FIELD = 'Content-Type';
 	private const WEB = ['text/html', 'application/x-www-form-urlencoded'];
 
 	public function render(array $variables = []): string {
