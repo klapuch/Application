@@ -35,7 +35,9 @@ final class PlainRequest implements Request {
 		);
 		return array_combine(
 			array_map(
-				[$this, 'unify'],
+				function(string $field): string {
+					return (new Header($field))->field();
+				},
 				array_map(
 					function(string $field) use ($prefix): string {
 						return str_replace(
@@ -54,18 +56,4 @@ final class PlainRequest implements Request {
 			$headers
 		);
 	}
-
-	// @codingStandardsIgnoreStart Used by array_map
-	private function unify(string $field): string {
-		return implode(
-			'-',
-			array_map(
-				function(string $field): string {
-					return ucfirst(strtolower($field));
-				},
-				explode('-', $field)
-			)
-		);
-	}
-	// @codingStandardsIgnoreEnd
 }
