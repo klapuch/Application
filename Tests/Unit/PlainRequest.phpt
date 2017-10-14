@@ -22,7 +22,7 @@ final class PlainRequest extends \Tester\TestCase {
 		$_SERVER['HTTP_content_TYPE'] = 'ghi';
 		$_SERVER['FOO_BAR'] = 'foo';
 		Assert::same(
-			['accept' => 'abc', 'host' => 'def', 'content-type' => 'ghi'],
+			['Accept' => 'abc', 'Host' => 'def', 'Content-Type' => 'ghi'],
 			(new Application\PlainRequest())->headers()
 		);
 	}

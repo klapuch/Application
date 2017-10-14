@@ -33,8 +33,9 @@ final class PlainRequest implements Request {
 			},
 			ARRAY_FILTER_USE_KEY
 		);
-		return array_change_key_case(
-			array_combine(
+		return array_combine(
+			array_map(
+				[$this, 'unify'],
 				array_map(
 					function(string $field) use ($prefix): string {
 						return str_replace(
@@ -48,10 +49,23 @@ final class PlainRequest implements Request {
 						);
 					},
 					array_keys($headers)
-				),
-				$headers
+				)
 			),
-			CASE_LOWER
+			$headers
 		);
 	}
+
+	// @codingStandardsIgnoreStart Used by array_map
+	private function unify(string $field): string {
+		return implode(
+			'-',
+			array_map(
+				function(string $field): string {
+					return ucfirst(strtolower($field));
+				},
+				explode('-', $field)
+			)
+		);
+	}
+	// @codingStandardsIgnoreEnd
 }
