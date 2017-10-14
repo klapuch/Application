@@ -23,6 +23,7 @@ final class HtmlTemplate implements Output\Template {
 	}
 
 	public function render(array $variables = []): string {
+		http_response_code($this->response->status());
 		$this->sendHeaders($this->response->headers());
 		return (new Output\XsltTemplate(
 			$this->xsl,

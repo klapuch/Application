@@ -10,10 +10,12 @@ use Klapuch\Output;
 final class FakeResponse implements Response {
 	private $body;
 	private $headers;
+	private $status;
 
-	public function __construct(Output\Format $body = null, array $headers = null) {
+	public function __construct(Output\Format $body = null, array $headers = null, int $status = null) {
 		$this->body = $body;
 		$this->headers = $headers;
+		$this->status = $status;
 	}
 
 	public function body(): Output\Format {
@@ -22,5 +24,9 @@ final class FakeResponse implements Response {
 
 	public function headers(): array {
 		return $this->headers;
+	}
+
+	public function status(): int {
+		return $this->status;
 	}
 }
