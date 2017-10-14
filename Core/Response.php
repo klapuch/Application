@@ -16,4 +16,10 @@ interface Response {
 	 * @return array
 	 */
 	public function headers(): array;
+
+	/**
+	 * Status code of the response
+	 * @return int
+	 */
+	public function status(): int;
 }

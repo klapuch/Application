@@ -20,7 +20,8 @@ final class RawTemplate extends \Tester\TestCase {
 			(new Application\RawTemplate(
 				new Application\FakeResponse(
 					new Output\FakeFormat('<foo>FOO</foo>'),
-					['test' => 'foo']
+					['test' => 'foo'],
+					200
 				)
 			))->render()
 		);
