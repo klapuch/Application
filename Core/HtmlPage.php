@@ -18,7 +18,7 @@ final class HtmlPage extends Page {
 				new Internal\HeaderExtension($configuration['HEADERS']),
 				new Internal\RawHeaderExtension([$csp])
 			))->improve();
-			$route = $this->routes->match($this->uri);
+			$route = current($this->routes->matches($this->uri));
 			return $this->target(
 				$route
 			)->template(

@@ -16,7 +16,7 @@
 		"klapuch/internal": "^0.0.4",
 		"klapuch/ini": "^2.0",
 		"klapuch/log": "*",
-		"klapuch/routing": "^0.0.9",
+		"klapuch/routing": "^0.0.11",
 		"klapuch/uri": "*",
 		"klapuch/output": "*"
 	},
