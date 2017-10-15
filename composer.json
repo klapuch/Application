@@ -13,10 +13,10 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"klapuch/internal": "*",
+		"klapuch/internal": "^0.0.4",
 		"klapuch/ini": "^2.0",
 		"klapuch/log": "*",
-		"klapuch/routing": "*",
+		"klapuch/routing": "^0.0.9",
 		"klapuch/uri": "*",
 		"klapuch/output": "*"
 	},
