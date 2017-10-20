@@ -25,9 +25,4 @@ abstract class Page implements Output\Template {
 		$this->routes = $routes;
 		$this->uri = $uri;
 	}
-
-	final protected function target(Routing\Route $route): View {
-		$class = $route->resource();
-		return new $class($this->uri, $this->logs, $this->configuration);
-	}
 }

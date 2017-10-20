@@ -14,8 +14,7 @@ final class RawPage extends Page {
 				new Internal\IniSetExtension($configuration['INI']),
 				new Internal\HeaderExtension($configuration['HEADERS'])
 			))->improve();
-			$route = current($this->routes->matches());
-			return $this->target($route)->template($route->parameters())->render($variables);
+			return current($this->routes->matches())->render($variables);
 		} catch (\Throwable $ex) {
 			if (isset($configuration['RUNTIME']['debug']) && $configuration['RUNTIME']['debug'] === true)
 				throw $ex;

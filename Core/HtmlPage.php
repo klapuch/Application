@@ -18,12 +18,7 @@ final class HtmlPage extends Page {
 				new Internal\HeaderExtension($configuration['HEADERS']),
 				new Internal\RawHeaderExtension([$csp])
 			))->improve();
-			$route = current($this->routes->matches());
-			return $this->target(
-				$route
-			)->template(
-				$_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $route->parameters()
-			)->render(
+			return current($this->routes->matches())->render(
 				[
 					'base_url' => $this->uri->reference(),
 					'nonce' => $csp->nonce(),
