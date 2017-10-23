@@ -2,10 +2,27 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
+use Klapuch\Ini;
 use Klapuch\Internal;
 use Klapuch\Log;
+use Klapuch\Output;
+use Klapuch\Routing;
 
-final class RawPage extends Page {
+final class RawPage implements Output\Template {
+	private $configuration;
+	private $logs;
+	private $routes;
+
+	public function __construct(
+		Ini\Source $configuration,
+		Log\Logs $logs,
+		Routing\Routes $routes
+	) {
+		$this->configuration = $configuration;
+		$this->logs = $logs;
+		$this->routes = $routes;
+	}
+
 	public function render(array $variables = []): string {
 		try {
 			$configuration = $this->configuration->read();
@@ -16,8 +33,6 @@ final class RawPage extends Page {
 			))->improve();
 			return current($this->routes->matches())->render($variables);
 		} catch (\Throwable $ex) {
-			if (isset($configuration['RUNTIME']['debug']) && $configuration['RUNTIME']['debug'] === true)
-				throw $ex;
 			$this->logs->put(
 				new Log\PrettyLog(
 					$ex,

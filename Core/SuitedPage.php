@@ -2,7 +2,30 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
-final class SuitedPage extends Page {
+use Klapuch\Ini;
+use Klapuch\Log;
+use Klapuch\Output;
+use Klapuch\Routing;
+use Klapuch\Uri;
+
+final class SuitedPage implements Output\Template {
+	private $configuration;
+	private $logs;
+	private $routes;
+	private $uri;
+
+	public function __construct(
+		Ini\Source $configuration,
+		Log\Logs $logs,
+		Routing\Routes $routes,
+		Uri\Uri $uri
+	) {
+		$this->configuration = $configuration;
+		$this->logs = $logs;
+		$this->routes = $routes;
+		$this->uri = $uri;
+	}
+
 	private const FIELD = 'Content-Type';
 	private const WEB = ['text/html', 'application/x-www-form-urlencoded'];
 
@@ -18,8 +41,7 @@ final class SuitedPage extends Page {
 		return (new RawPage(
 			$this->configuration,
 			$this->logs,
-			$this->routes,
-			$this->uri
+			$this->routes
 		))->render($variables);
 	}
 
