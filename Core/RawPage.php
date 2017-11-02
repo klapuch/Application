@@ -28,8 +28,8 @@ final class RawPage implements Output\Template {
 			$configuration = $this->configuration->read();
 			(new Internal\CombinedExtension(
 				new Internal\InternationalExtension('Europe/Prague'),
-				new Internal\IniSetExtension($configuration['INI']),
-				new Internal\HeaderExtension($configuration['HEADERS'])
+				new Internal\IniSetExtension($configuration['INI'] ?? []),
+				new Internal\HeaderExtension($configuration['HEADERS'] ?? [])
 			))->improve();
 			return current($this->routes->matches())->render($variables);
 		} catch (\Throwable $ex) {

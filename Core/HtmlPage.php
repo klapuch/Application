@@ -33,10 +33,10 @@ final class HtmlPage implements Output\Template {
 			$csp = new Internal\CspHeader($configuration['CSP']);
 			(new Internal\CombinedExtension(
 				new Internal\InternationalExtension('Europe/Prague'),
-				new Internal\IniSetExtension($configuration['INI']),
-				new Internal\SessionExtension($configuration['SESSIONS']),
-				new Internal\CookieExtension($configuration['PROPRIETARY_SESSIONS']),
-				new Internal\HeaderExtension($configuration['HEADERS']),
+				new Internal\IniSetExtension($configuration['INI'] ?? []),
+				new Internal\SessionExtension($configuration['SESSIONS'] ?? []),
+				new Internal\CookieExtension($configuration['PROPRIETARY_SESSIONS'] ?? []),
+				new Internal\HeaderExtension($configuration['HEADERS'] ?? []),
 				new Internal\RawHeaderExtension([$csp])
 			))->improve();
 			return current($this->routes->matches())->render(
