@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
-use Klapuch\Ini;
+use Klapuch\Configuration;
 use Klapuch\Log;
 use Klapuch\Output;
 use Klapuch\Routing;
@@ -15,7 +15,7 @@ final class SuitedPage implements Output\Template {
 	private $uri;
 
 	public function __construct(
-		Ini\Source $configuration,
+		Configuration\Source $configuration,
 		Log\Logs $logs,
 		Routing\Routes $routes,
 		Uri\Uri $uri

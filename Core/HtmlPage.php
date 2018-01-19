@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Klapuch\Application;
 
-use Klapuch\Ini;
+use Klapuch\Configuration;
 use Klapuch\Internal;
 use Klapuch\Log;
 use Klapuch\Output;
@@ -16,7 +16,7 @@ final class HtmlPage implements Output\Template {
 	private $uri;
 
 	public function __construct(
-		Ini\Source $configuration,
+		Configuration\Source $configuration,
 		Log\Logs $logs,
 		Routing\Routes $routes,
 		Uri\Uri $uri
