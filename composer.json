@@ -14,7 +14,7 @@
 	"require": {
 		"php": ">=7.1",
 		"klapuch/internal": "*",
-		"klapuch/output": "*"
+		"klapuch/output": ">= 2.12"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",
@@ -23,6 +23,7 @@
 		"sebastian/phpcpd": "^4.0.0",
 		"consistence/coding-standard": "^3.0",
 		"phpstan/phpstan": "^0.10.1",
+		"mockery/mockery": "^1.0.0",
 		"phpstan/phpstan-strict-rules": "*",
 		"phpstan/phpstan-mockery": "^0.10.2",
 		"phing/phing": "^2.16"
