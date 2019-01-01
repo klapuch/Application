@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Application;
 
 use Klapuch\Application;
@@ -9,6 +10,7 @@ use Klapuch\Output;
  * Well formatted for HTTP
  */
 final class HttpResponse implements Application\Response {
+	/** @var \Klapuch\Application\Response */
 	private $origin;
 
 	public function __construct(Application\Response $origin) {
@@ -20,9 +22,9 @@ final class HttpResponse implements Application\Response {
 	}
 
 	public function headers(): array {
-		return array_combine(
+		return (array) array_combine(
 			array_map(
-				function(string $field): string {
+				static function(string $field): string {
 					return (new Header($field))->field();
 				},
 				array_keys($this->origin->headers())

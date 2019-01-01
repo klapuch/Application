@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Application;
 
 /**
@@ -9,6 +10,8 @@ final class Header {
 	private const EXCEPTIONS = [
 		'Etag' => 'ETag',
 	];
+
+	/** @var string */
 	private $field;
 
 	public function __construct(string $field) {
@@ -19,7 +22,7 @@ final class Header {
 		$field = implode(
 			'-',
 			array_map(
-				function(string $field): string {
+				static function(string $field): string {
 					return ucfirst(strtolower($field));
 				},
 				explode('-', $this->field)

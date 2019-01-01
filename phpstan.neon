@@ -1,0 +1,8 @@
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	# - vendor/pepakriz/phpstan-exception-rules/extension.neon TODO: enable
+parameters:
+	ignoreErrors:
+		# Fakes, intentional fails
+		- '~Method .+Fake.+::.+\(\) should return .+ but returns .+\|null~'
+		- '~Method class@anonymous/PlainRequest.php.+~'

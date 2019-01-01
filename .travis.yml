@@ -4,12 +4,14 @@ language: php
 
 php:
   - 7.1
+  - 7.2
+  - 7.3
 
 before_install:
   - composer self-update
 
 install:
-  - composer install --no-interaction --prefer-dist --no-scripts --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
+  - composer install --no-interaction --prefer-dist --no-scripts --no-progress --no-suggest --classmap-authoritative
 
 script:
   - ./vendor/bin/phing ci
@@ -21,7 +23,3 @@ after_script:
 
 after_failure:
   - for i in $(find Tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
-
-cache:
-    directories:
-      - $HOME/.composer/cache

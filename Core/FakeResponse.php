@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Application;
 
 use Klapuch\Output;
@@ -8,11 +9,16 @@ use Klapuch\Output;
  * Fake
  */
 final class FakeResponse implements Response {
+	/** @var \Klapuch\Output\Format|null */
 	private $body;
+
+	/** @var mixed[]|null */
 	private $headers;
+
+	/** @var int|null */
 	private $status;
 
-	public function __construct(Output\Format $body = null, array $headers = null, int $status = null) {
+	public function __construct(?Output\Format $body = null, ?array $headers = null, ?int $status = null) {
 		$this->body = $body;
 		$this->headers = $headers;
 		$this->status = $status;
@@ -22,6 +28,9 @@ final class FakeResponse implements Response {
 		return $this->body;
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function headers(): array {
 		return $this->headers;
 	}

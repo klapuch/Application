@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Application;
 
 use Klapuch\Internal;
@@ -9,6 +10,7 @@ use Klapuch\Output;
  * Raw template
  */
 final class RawTemplate implements Output\Template {
+	/** @var \Klapuch\Application\Response */
 	private $response;
 
 	public function __construct(Response $response) {
